@@ -44,14 +44,8 @@ RUN rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.
     php56-php-pdo php70-php-pdo php72-php-pdo \
     php56-php-pecl-redis php70-php-pecl-redis php72-php-pecl-redis
 
-# 复制站点文件
-#ADD host/host /etc/host
-#ADD nginx/* /etc/nginx/
-#ADD php/5.6/fpm/www.conf /etc/opt/remi/php56/php-fpm.d/www.conf
-#ADD php/7.0/fpm/www.conf /etc/opt/remi/php70/php-fpm.d/www.conf
-#ADD php/7.2/fpm/www.conf /etc/opt/remi/php72/php-fpm.d/www.conf
-#ADD boot/boot.sh /boot.sh
-#ADD profile/profile /profile
+RUN yum install -y  net-tools && \
+     ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 
 CMD ["/usr/sbin/init"]
 

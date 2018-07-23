@@ -1,2 +1,4 @@
-pid.log
+docker.pid
+www/*
+nginx/conf.d/*
 .idea/
