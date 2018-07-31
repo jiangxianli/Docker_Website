@@ -42,10 +42,27 @@ RUN rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.
     php56-php-mysqlnd php70-php-mysqlnd php72-php-mysqlnd \
     php56-php-mysqlnd php70-php-mysqlnd php72-php-mysqlnd \
     php56-php-pdo php70-php-pdo php72-php-pdo \
-    php56-php-pecl-redis php70-php-pecl-redis php72-php-pecl-redis
+    php56-php-pecl-redis php70-php-pecl-redis php72-php-pecl-redis \
+    php70-php-bcmath php72-php-bcmath php56-php-bcmath \
+    php56-php-xml php70-php-xml php72-php-xml
 
 RUN yum install -y  net-tools && \
-     ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+     ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
+     mkdir -p /www/wwwroot && \
+     chown -R nginx.nginx /www/wwwroot
 
-CMD ["/usr/sbin/init"]
+# 安装composer
+RUN ln -s /opt/remi/php72/root/usr/bin/php /usr/bin/php && \
+    wget https://getcomposer.org/download/1.6.5/composer.phar && \
+    chmod u+x composer.phar && \
+    mv composer.phar /usr/bin/composer && \
+    composer config -g repo.packagist composer https://packagist.phpcomposer.com
+
+ADD boot/boot.sh /
+RUN chmod +x /boot.sh && \
+    ln -s /boot.sh /usr/bin/docker_boot
+
+VOLUME ["/www/wwwroot"]
+
+ENTRYPOINT ["/usr/sbin/init"]
 
