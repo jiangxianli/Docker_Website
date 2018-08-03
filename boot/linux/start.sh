@@ -1,13 +1,11 @@
 #!/bin/bash
+source ./common.sh
 
-# 获取当前目录路径
-CUR_DIR=$(cd `dirname $0`; pwd)
-# 获取父级目录路径
-PROJECT_DIR=$(cd `dirname $CUR_DIR`/../; pwd)
-# PID地址
-PID_FILE=$PROJECT_DIR/docker.pid
+# 检测先关闭容器
+source ./stop.sh show_tip
 
 # 提权后台运行容器
+echo "正在启动容器...."
 docker run  --rm --privileged -dit \
     -p 80:80 \
     -v $PROJECT_DIR/nginx/nginx.conf:/etc/nginx/nginx.conf \
@@ -18,9 +16,11 @@ docker run  --rm --privileged -dit \
     -v $PROJECT_DIR/profile/profile:/etc/profile \
     -v $PROJECT_DIR/host/host:/etc/hosts \
     -v $PROJECT_DIR/www:/www/wwwroot \
-    website > $PID_FILE
+    website | cut -c1-12 > $PID_FILE
 
 # 初始化
 docker exec -it $(cat $PID_FILE ) sh -c "sh /boot.sh"
+
 # 进入容器终端
+echo "正在进入容器终端...."
 docker exec -it $(cat $PID_FILE ) /bin/bash
