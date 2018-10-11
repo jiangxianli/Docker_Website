@@ -47,9 +47,7 @@ RUN rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.
     php56-php-xml php70-php-xml php72-php-xml
 
 RUN yum install -y  net-tools && \
-     ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
-     mkdir -p /www/wwwroot && \
-     chown -R nginx.nginx /www/wwwroot
+     ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 
 # 安装composer
 RUN ln -s /opt/remi/php72/root/usr/bin/php /usr/bin/php && \
@@ -61,6 +59,8 @@ RUN ln -s /opt/remi/php72/root/usr/bin/php /usr/bin/php && \
 ADD boot/boot.sh /
 RUN chmod +x /boot.sh && \
     ln -s /boot.sh /usr/bin/docker_boot
+
+RUN mkdir -p /www/wwwroot
 
 VOLUME ["/www/wwwroot"]
 

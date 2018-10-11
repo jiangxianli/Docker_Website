@@ -1,0 +1,88 @@
+127.0.0.1	localhost
+127.0.1.1	ubuntu
+::1	localhost
+# The following lines are desirable for IPv6 capable hosts
+#::1     localhost ip6-localhost ip6-loopback
+#ff02::1 ip6-allnodes
+#ff02::2 ip6-allrouters
+
+127.0.0.1 website.link 
+127.0.0.1 amqp.project.api.sscf.com 
+127.0.0.1 stock.info.server.sscf.com 
+127.0.0.1 stock.manage.admin.sscf.com
+127.0.0.1 stock.user.admin.sscf.com
+127.0.0.1 stock.information.admin.sscf.com
+127.0.0.1 stock.user.server.sscf.com
+127.0.0.1 image.server.api.sscf.com
+127.0.0.1 stock.message.server.sscf.com
+127.0.0.1 live.video.admin.sscf.com
+127.0.0.1 stock.information.server.sscf.com
+127.0.0.1 stock.pc.front.sscf.com
+127.0.0.1 stock.front.api.sscf.com
+127.0.0.1 chatroom.sscf.com
+127.0.0.1 live.video.sscf.com
+127.0.0.1 stock.asssistant.server.sscf.com
+127.0.0.1 assistant.api.server.sscf.com
+127.0.0.1 order.sscf.com
+127.0.0.1 ip.front.sscf.com
+127.0.0.1 user.sscf.com
+
+127.0.0.1 ask.stock.im.api.sscf.com
+127.0.0.1 ask.stock.control.sscf.com
+127.0.0.1 ask.stock.cms.sscf.com
+
+127.0.0.1 yan.teacher.control.sscf.com
+127.0.0.1 yan.teacher.cms.sscf.com
+127.0.0.1 yan.teacher.sscf.com
+127.0.0.1 yan.teacher.user.sscf.com
+
+127.0.0.1 smart.investment.cms.sscf.com
+127.0.0.1 smart.investment.control.sscf.com
+127.0.0.1 smart.investment.user.sscf.com
+127.0.0.1 smart.investment.wechat.sscf.com
+
+39.108.191.48 git.sscf123.com
+
+127.0.0.1 assistant.api.sscf.net
+
+192.168.11.61 user.api.test.sscf123.com
+
+127.0.0.1 stock.pool.control.sscf.com
+127.0.0.1 stock.pool.sscf.com
+127.0.0.1 increment.sscf.com
+
+127.0.0.1 123.www.test.sscf123.com
+192.168.11.156 market.centre.sscf.cc
+
+127.0.0.1 product.center.sscf.com
+
+127.0.0.1 market.centre.user.sscf.com
+127.0.0.1 market.centre.sscf.com
+127.0.0.1 gz.market.centre.sscf.com
+127.0.0.1 cs.market.centre.sscf.com
+127.0.0.1 zgwy.market.centre.sscf.com
+
+
+127.0.0.1 ask.stock.im.sscf.com
+127.0.0.1 ask.stock.im.api.sscf.com
+127.0.0.1 ask.stock.control.sscf.com
+127.0.0.1 ask.stock.cms.sscf.com
+127.0.0.1 vip.sscf.com
+127.0.0.1 vip.gp51.com
+
+
+127.0.0.1 vip.operate.sscf.com
+
+
+1207.0.0.1 sscf.cms.sscf.com
+
+
+
+127.0.0.1 power.investment.sscf.com
+127.0.0.1 power.investment.user.sscf.com
+
+127.0.0.1 project.service.sscf.com
+127.0.0.1 official.website.new.sscf.com
+
+127.0.0.1 retail.plan.user.sscf.com
+127.0.0.1 retail.plan.web.sscf.com
