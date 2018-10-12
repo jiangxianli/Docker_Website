@@ -22,13 +22,14 @@ RUN mv CentOS-Base.repo CentOS-Base.repo.bak && \
     yum makecache && \
     yum -y update
 
-# 安装Nginx
+# 安装Nginx、Git、Crontab
 WORKDIR /root
 RUN rpm -Uvh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm && \
-    yum  -y install nginx
+    yum  -y install nginx git  crontabs
 
 # 开放80端口
 EXPOSE 80
+EXPOSE 22
 
 # 安装PHP7
 RUN rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm && \
@@ -46,6 +47,7 @@ RUN rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.
     php70-php-bcmath php72-php-bcmath php56-php-bcmath \
     php56-php-xml php70-php-xml php72-php-xml
 
+# 修改时区
 RUN yum install -y  net-tools && \
      ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 
@@ -56,11 +58,22 @@ RUN ln -s /opt/remi/php72/root/usr/bin/php /usr/bin/php && \
     mv composer.phar /usr/bin/composer && \
     composer config -g repo.packagist composer https://packagist.phpcomposer.com
 
+# 添加 PHP\Nginx服务器启动文件
 ADD boot/boot.sh /
 RUN chmod +x /boot.sh && \
     ln -s /boot.sh /usr/bin/docker_boot
 
+# 建立Web项目目录
 RUN mkdir -p /www/wwwroot
+
+# 安装GOLANG
+RUN wget -O go.tar.gz https://dl.google.com/go/go1.11.1.linux-amd64.tar.gz && \
+    tar xzvf  go.tar.gz && mv go /usr/local/src/ && rm -rf go.tar.gz
+
+# 安装Supervisor
+RUN yum install -y  supervisor
+
+WORKDIR /www/wwwroot
 
 VOLUME ["/www/wwwroot"]
 
