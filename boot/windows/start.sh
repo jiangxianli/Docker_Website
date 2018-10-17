@@ -21,7 +21,7 @@ docker run  --rm --privileged -dit \
     --mount type=bind,source="$PROJECT_DIR\\host\\host",target="/etc/hosts" \
     --mount type=bind,source="$PROJECT_DIR\\crontab",target="/www/cron" \
     --mount type=bind,source="$PROJECT_DIR\\supervisord",target="/www/supervisord" \
-    --mount type=bind,source="$ROOT_DIR\\www",target="/www/wwwroot" \
+    --mount type=bind,source="$PROJECT_DIR\\www",target="/www/wwwroot" \
     website | cut -c1-12  > $PID_FILE
 
 # 初始化
