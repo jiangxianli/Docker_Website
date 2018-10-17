@@ -60,6 +60,7 @@ server {
 
 ### www 目录 【网站项目目录】
 > 此目录映射到容器中的/www/wwwroot ,所以在nginx的站点配置root 配置路径为/www/wwwroot/xxxproject/xxx
+> 注：Windows中 请保证当前宿主主机登录用户对www 有完全控制权限。选中文件夹右键【属性】-【安全】中设置。
 
 ## 使用
  - Windows 使用 Git Bash ,进入到boot/windows 目录 。需要配置`环境变量DOCKER_PROJECT_DIR`路径为本项目的根目录。
@@ -67,6 +68,7 @@ server {
  - 执行 `sh build.sh` 编译Dockerfile 构建镜像
  - 执行 `sh start.sh` 启动容器，启动的容器ID 存储在docker.pid文件中,启动成功后会进入到容器中的命令行。
  - 执行 `sh stop.sh` 来停止容器运行。
+ - 启动容器后 可以使用 sh root@127.0.0.1 登录容器。密码：root
  
 ## Windows 下使用Docker 注意事项
 - 使用Docker , 请安装 Docker for Windows10
