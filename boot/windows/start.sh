@@ -7,6 +7,7 @@ source ./stop.sh show_tip
 # 提权后台运行容器
 docker run  --rm --privileged -dit \
     -p 80:80 \
+    -p 22:22 \
     --mount type=bind,source="$PROJECT_DIR\\nginx\\nginx.conf",target="/etc/nginx/nginx.conf" \
     --mount type=bind,source="$PROJECT_DIR\\nginx\\laravel-index.conf",target="/etc/nginx/laravel-index.conf" \
     --mount type=bind,source="$PROJECT_DIR\\nginx\\php5.6.conf",target="/etc/nginx/php5.6.conf" \

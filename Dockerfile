@@ -45,7 +45,8 @@ RUN rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.
     php56-php-pdo php70-php-pdo php72-php-pdo \
     php56-php-pecl-redis php70-php-pecl-redis php72-php-pecl-redis \
     php70-php-bcmath php72-php-bcmath php56-php-bcmath \
-    php56-php-xml php70-php-xml php72-php-xml
+    php56-php-xml php70-php-xml php72-php-xml \
+    php56-php-pecl-mongodb php70-php-pecl-mongodb php72-php-pecl-mongodb
 
 # 修改时区
 RUN yum install -y  net-tools && \
@@ -70,8 +71,13 @@ RUN mkdir -p /www/wwwroot
 RUN wget -O go.tar.gz https://dl.google.com/go/go1.11.1.linux-amd64.tar.gz && \
     tar xzvf  go.tar.gz && mv go /usr/local/src/ && rm -rf go.tar.gz
 
-# 安装Supervisor
-RUN yum install -y  supervisor
+# 安装Supervisor、sshd
+RUN yum install -y  supervisor openssh-server  sudo && \
+    sed -i 's/UsePAM yes/UsePAM no/g' /etc/ssh/sshd_config && \
+    echo "root:root" | chpasswd && \
+    ssh-keygen -t dsa -f /etc/ssh/ssh_host_dsa_key && \
+    ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key && \
+    mkdir /var/run/sshd
 
 WORKDIR /www/wwwroot
 
