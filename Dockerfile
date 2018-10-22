@@ -58,7 +58,7 @@ RUN ln -s /opt/remi/php72/root/usr/bin/php /usr/bin/php && \
     wget https://getcomposer.org/download/1.6.5/composer.phar && \
     chmod u+x composer.phar && \
     mv composer.phar /usr/bin/composer && \
-    composer config -g repo.packagist composer https://packagist.phpcomposer.com
+    composer config -g repo.packagist composer https://packagist.laravel-china.org
 
 # 添加 PHP\Nginx服务器启动文件
 ADD boot/boot.sh /
@@ -73,7 +73,7 @@ RUN wget -O go.tar.gz https://dl.google.com/go/go1.11.1.linux-amd64.tar.gz && \
     tar xzvf  go.tar.gz && mv go /usr/local/src/ && rm -rf go.tar.gz
 
 # 安装Supervisor、sshd、gearmand
-RUN yum install -y  supervisor openssh-server gearmand  sudo && \
+RUN yum install -y  supervisor openssh-server gearmand  sudo zip unzip && \
     sed -i 's/UsePAM yes/UsePAM no/g' /etc/ssh/sshd_config && \
     echo "root:root" | chpasswd && \
     ssh-keygen -t dsa -f /etc/ssh/ssh_host_dsa_key && \
