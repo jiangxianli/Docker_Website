@@ -10,10 +10,10 @@ source /etc/profile
 
 
 # 复制cron文件
-cp -r /www/cron /var/spool/cron
+cp -r /www/cron/* /var/spool/cron/*
 
 # 复制supervisor文件
-cp -r /www/supervisord /etc/supervisord.d
+cp -r /www/supervisord/* /etc/supervisord.d/*
 
 #启动服务
 systemctl restart php56-php-fpm
