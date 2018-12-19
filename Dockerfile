@@ -47,7 +47,8 @@ RUN rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.
     php70-php-bcmath php72-php-bcmath php56-php-bcmath \
     php56-php-xml php70-php-xml php72-php-xml \
     php56-php-pecl-mongodb php70-php-pecl-mongodb php72-php-pecl-mongodb \
-    php56-php-pecl-gearman php70-php-pecl-gearman php72-php-pecl-gearman
+    php56-php-pecl-gearman php70-php-pecl-gearman php72-php-pecl-gearman \
+    php56-php-pecl-zip php70-php-pecl-zip  php72-php-pecl-zip
 
 # 修改时区
 RUN yum install -y  net-tools && \
@@ -58,7 +59,8 @@ RUN ln -s /opt/remi/php72/root/usr/bin/php /usr/bin/php && \
     wget https://getcomposer.org/download/1.6.5/composer.phar && \
     chmod u+x composer.phar && \
     mv composer.phar /usr/bin/composer && \
-    composer config -g repo.packagist composer https://packagist.laravel-china.org
+    composer config -g repo.packagist composer https://packagist.laravel-china.org && \
+    composer config -g secure-http false
 
 # 添加 PHP\Nginx服务器启动文件
 ADD boot/boot.sh /
@@ -73,7 +75,7 @@ RUN wget -O go.tar.gz https://dl.google.com/go/go1.11.1.linux-amd64.tar.gz && \
     tar xzvf  go.tar.gz && mv go /usr/local/src/ && rm -rf go.tar.gz
 
 # 安装Supervisor、sshd、gearmand
-RUN yum install -y  supervisor openssh-server gearmand  sudo zip unzip && \
+RUN yum install -y  supervisor openssh-server gearmand  sudo zip unzip redis && \
     sed -i 's/UsePAM yes/UsePAM no/g' /etc/ssh/sshd_config && \
     echo "root:root" | chpasswd && \
     ssh-keygen -t dsa -f /etc/ssh/ssh_host_dsa_key && \

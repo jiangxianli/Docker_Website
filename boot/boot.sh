@@ -10,7 +10,7 @@ source /etc/profile
 
 
 # 复制cron文件
-cp -r /www/cron/* /var/spool/cron/*
+cp -r /www/crontab/* /var/spool/cron/*
 
 # 复制supervisor文件
 cp -r /www/supervisord/* /etc/supervisord.d/*

@@ -19,8 +19,8 @@ docker run  --rm --privileged -dit \
     --mount type=bind,source="$PROJECT_DIR\\php\\7.2\\fpm\\www.conf",target="/etc/opt/remi/php72/php-fpm.d/www.conf" \
     --mount type=bind,source="$PROJECT_DIR\\profile\\profile.sh",target="/etc/profile.d/profile.sh" \
     --mount type=bind,source="$PROJECT_DIR\\host\\host",target="/etc/hosts" \
-    --mount type=bind,source="$PROJECT_DIR\\crontab",target="/www/cron" \
-    --mount type=bind,source="$PROJECT_DIR\\supervisord",target="/www/supervisord" \
+    --mount type=bind,source="$PROJECT_DIR\\crontab",target="/www/" \
+    --mount type=bind,source="$PROJECT_DIR\\supervisord",target="/www/" \
     --mount type=bind,source="$PROJECT_DIR\\www",target="/www/wwwroot" \
     website | cut -c1-12  > $PID_FILE
 
