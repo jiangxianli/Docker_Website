@@ -18,14 +18,14 @@ docker run  --rm --privileged -dit \
     --mount type=bind,source="$PROJECT_DIR\\php\\7.0\\fpm\\www.conf",target="/etc/opt/remi/php70/php-fpm.d/www.conf" \
     --mount type=bind,source="$PROJECT_DIR\\php\\7.2\\fpm\\www.conf",target="/etc/opt/remi/php72/php-fpm.d/www.conf" \
     --mount type=bind,source="$PROJECT_DIR\\profile\\profile.sh",target="/etc/profile.d/profile.sh" \
-    --mount type=bind,source="$PROJECT_DIR\\host\\host",target="/etc/hosts" \
-    --mount type=bind,source="$PROJECT_DIR\\crontab",target="/www/" \
-    --mount type=bind,source="$PROJECT_DIR\\supervisord",target="/www/" \
-    --mount type=bind,source="$PROJECT_DIR\\www",target="/www/wwwroot" \
+    --mount type=bind,source="$PROJECT_DIR\\host\\host",target="/www/hosts" \
+    --mount type=bind,source="$PROJECT_DIR\\crontab",target="/www/crontab" \
+    --mount type=bind,source="$PROJECT_DIR\\supervisord",target="/www/supervisord" \
+    --mount type=bind,source="$PROJECT_DIR\\boot\\boot.sh",target="/www/boot.sh" \
     website | cut -c1-12  > $PID_FILE
 
 # 初始化
-winpty docker exec -it $(cat $PID_FILE ) sh -c "sh /boot.sh"
+winpty docker exec -it $(cat $PID_FILE ) sh -c "sh /www/boot.sh"
 
 # 进入容器终端
 echo "正在进入容器终端...."
