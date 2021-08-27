@@ -8,24 +8,33 @@ source ./stop.sh show_tip
 docker run  --rm --privileged -dit \
     -p 80:80 \
     -p 22:22 \
-    --mount type=bind,source="$PROJECT_DIR\\nginx\\nginx.conf",target="/etc/nginx/nginx.conf" \
-    --mount type=bind,source="$PROJECT_DIR\\nginx\\laravel-index.conf",target="/etc/nginx/laravel-index.conf" \
-    --mount type=bind,source="$PROJECT_DIR\\nginx\\php5.6.conf",target="/etc/nginx/php5.6.conf" \
-    --mount type=bind,source="$PROJECT_DIR\\nginx\\php7.0.conf",target="/etc/nginx/php7.0.conf" \
-    --mount type=bind,source="$PROJECT_DIR\\nginx\\php7.2.conf",target="/etc/nginx/php7.2.conf" \
-    --mount type=bind,source="$PROJECT_DIR\\nginx\\conf.d",target="/etc/nginx/conf.d" \
-    --mount type=bind,source="$PROJECT_DIR\\php\\5.6\\fpm\\www.conf",target="/etc/opt/remi/php56/php-fpm.d/www.conf" \
-    --mount type=bind,source="$PROJECT_DIR\\php\\7.0\\fpm\\www.conf",target="/etc/opt/remi/php70/php-fpm.d/www.conf" \
-    --mount type=bind,source="$PROJECT_DIR\\php\\7.2\\fpm\\www.conf",target="/etc/opt/remi/php72/php-fpm.d/www.conf" \
-    --mount type=bind,source="$PROJECT_DIR\\profile\\profile.sh",target="/etc/profile.d/profile.sh" \
-    --mount type=bind,source="$PROJECT_DIR\\host\\host",target="/www/hosts" \
-    --mount type=bind,source="$PROJECT_DIR\\crontab",target="/www/crontab" \
-    --mount type=bind,source="$PROJECT_DIR\\supervisord",target="/www/supervisord" \
-    --mount type=bind,source="$PROJECT_DIR\\boot\\boot.sh",target="/www/boot.sh" \
-    website | cut -c1-12  > $PID_FILE
+    --name website \
+    -v $PROJECT_DIR\\nginx\\conf.d:/etc/nginx/conf.d \
+    -v $PROJECT_DIR\\nginx\\nginx.conf:/etc/nginx/nginx.conf \
+    -v $PROJECT_DIR\\nginx\\laravel-index.conf:/etc/nginx/laravel-index.conf \
+    -v $PROJECT_DIR\\nginx\\php5.6.conf:/etc/nginx/php5.6.conf \
+    -v $PROJECT_DIR\\nginx\\php7.0.conf:/etc/nginx/php7.0.conf \
+    -v $PROJECT_DIR\\nginx\\php7.1.conf:/etc/nginx/php7.1.conf \
+    -v $PROJECT_DIR\\nginx\\php7.2.conf:/etc/nginx/php7.2.conf \
+    -v $PROJECT_DIR\\nginx\\php7.3.conf:/etc/nginx/php7.3.conf \
+    -v $PROJECT_DIR\\nginx\\php7.4.conf:/etc/nginx/php7.4.conf \
+    -v $PROJECT_DIR\\php\\php56\\php-fpm.d:/etc/opt/remi/php56/php-fpm.d \
+    -v $PROJECT_DIR\\php\\php70\\php-fpm.d:/etc/opt/remi/php70/php-fpm.d \
+    -v $PROJECT_DIR\\php\\php71\\php-fpm.d:/etc/opt/remi/php71/php-fpm.d \
+    -v $PROJECT_DIR\\php\\php72\\php-fpm.d:/etc/opt/remi/php72/php-fpm.d \
+    -v $PROJECT_DIR\\php\\php73\\php-fpm.d:/etc/opt/remi/php73/php-fpm.d \
+    -v $PROJECT_DIR\\php\\php74\\php-fpm.d:/etc/opt/remi/php74/php-fpm.d \
+    -v $PROJECT_DIR\\profile:/docker/profile.d \
+    -v $PROJECT_DIR\\host\\host:/docker/hosts \
+    -v $PROJECT_DIR\\crontab:/docker/crontab \
+    -v $PROJECT_DIR\\boot\\boot.sh:/docker/docker_boot \
+    -v $PROJECT_DIR\\supervisord:/docker/supervisord \
+    -v $PROJECT_DIR\\..\\www:/www/wwwroot \
+    -v $PROJECT_DIR\\cgroup:/sys/fs/cgroup \
+    website | head -n 1 | cut -c1-12  > $PID_FILE
 
 # 初始化
-winpty docker exec -it $(cat $PID_FILE ) sh -c "sh /www/boot.sh"
+winpty docker exec -it $(cat $PID_FILE ) sh -c "sh /docker/docker_boot"
 
 # 进入容器终端
 echo "正在进入容器终端...."
